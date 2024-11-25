@@ -7,20 +7,32 @@ for(let i = 0; i < 256; i++){
     container.appendChild(div)
 }
 
-const gridCells = document.querySelectorAll(".grids");
-gridCells.forEach((cell) => {
-    let passes = 0;
-    cell.addEventListener("mouseover", function () {
-        if(passes < 10){
-            let r = Math.floor(Math.random() * 256)
-            let g = Math.floor(Math.random() * 256)
-            let b = Math.floor(Math.random() * 256)
-            passes++
-            cell.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${passes * 0.1})`
-        }
-    })
-    
+let isHolding = false
+
+document.addEventListener("mousedown", () => {
+    isHolding = true
 })
+
+document.addEventListener("mouseup", () => {
+    isHolding = false
+})
+
+const gridCells = document.querySelectorAll(".grids");
+    gridCells.forEach((cell) => {
+        let passes = 0;
+        cell.addEventListener("mousemove", function () {
+            if(isHolding){
+                if(passes < 10){
+                    let r = Math.floor(Math.random() * 256)
+                    let g = Math.floor(Math.random() * 256)
+                    let b = Math.floor(Math.random() * 256)
+                    passes++
+                    cell.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${passes * 0.1})`
+                }
+            }
+        })
+        
+    })
 
 const modeBlack = document.querySelector(".modeBlack")
 modeBlack.style.display = "none"
@@ -42,13 +54,15 @@ function changeMode(){
 
         gridCells.forEach((cell) => {
             let passes = 0;
-            cell.addEventListener("mouseover", function () {
-                if(passes < 10){
-                    let r = Math.floor(Math.random() * 256)
-                    let g = Math.floor(Math.random() * 256)
-                    let b = Math.floor(Math.random() * 256)
-                    passes++
-                    cell.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${passes * 0.1})`
+            cell.addEventListener("mousemove", function () {
+                if(isHolding){
+                    if(passes < 10){
+                        let r = Math.floor(Math.random() * 256)
+                        let g = Math.floor(Math.random() * 256)
+                        let b = Math.floor(Math.random() * 256)
+                        passes++
+                        cell.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${passes * 0.1})`
+                    }
                 }
             })
             
@@ -60,8 +74,10 @@ function changeMode(){
         modeBlack.style.display = "inline"
 
         gridCells.forEach((cell) => {
-            cell.addEventListener("mouseover", function () {
-                cell.style.backgroundColor = `black`
+            cell.addEventListener("mousemove", function () {
+                if(isHolding){
+                    cell.style.backgroundColor = `black`
+                }
             })
         })
     }
@@ -107,13 +123,15 @@ function changeGridSize(){
     const gridCells = document.querySelectorAll(".grids");
     gridCells.forEach((cell) => {
         let passes = 0;
-        cell.addEventListener("mouseover", function () {
-            if(passes < 10){
-                let r = Math.floor(Math.random() * 256)
-                let g = Math.floor(Math.random() * 256)
-                let b = Math.floor(Math.random() * 256)
-                passes++
-                cell.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${passes * 0.1})`
+        cell.addEventListener("mousemove", function () {
+            if(isHolding){
+                if(passes < 10){
+                    let r = Math.floor(Math.random() * 256)
+                    let g = Math.floor(Math.random() * 256)
+                    let b = Math.floor(Math.random() * 256)
+                    passes++
+                    cell.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${passes * 0.1})`
+                }
             }
         })
         
